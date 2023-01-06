@@ -1,0 +1,41 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="contactForm">
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="name" name="name" required formControlName="name">
+
+        <div *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.errors?.['required']" class="alert alert-danger">Este campo es requerido</div>
+
+        <div *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.errors?.['minlength']" class="alert alert-danger">Name bust be longer than {{contactForm.get('name')?.errors?.['minlength']?.requiredLength}} characteres.</div>
+
+        <!-- <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Este campo es requerido</div> -->
+    </div>
+
+    <div class="mb-3">
+        <input type="checkbox" class="form-check-input" id="checkAdult" name="checkAdult" required formControlName="checkAdult">
+        <label for="checkAdult" class="form-label">¿Eres mayor de 18 años?</label>
+        
+        <div *ngIf="contactForm.get('checkAdult')?.touched && contactForm.get('checkAdult')?.errors?.['required']" class="alert alert-danger">Este campo es requerido</div>
+
+    </div>
+
+    <div class="mb-3">
+        <label for="departament" class="form-label">Departamento</label>
+        <select name="departament" id="departament" class="form-select form-select-sm" formControlName="departament">
+            <option selected>Elije una opcion</option>
+            <option value="marketing">Marketing</option>
+            <option value="sales">Sales</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="comment" class="form-label">Comentario</label>
+        <textarea class="form-control" name="comment" id="comment" rows="4" placeholder="Escribe un comentario" formControlName="comment" required></textarea>
+
+        <div *ngIf="contactForm.get('comment')?.touched && contactForm.get('comment')?.errors?.['required']" class="alert alert-danger">Este campo es requerido</div>
+    </div>
+
+    <div class="d-grid gap-2 col-4 float-end">
+        <button type="submit" class="btn btn-info btn-lg" [disabled]="contactForm.invalid">Enviar</button>
+    </div>
+</form>
